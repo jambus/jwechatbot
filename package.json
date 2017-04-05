@@ -4,6 +4,7 @@
   "main": "bot.js",
   "devDependencies": {},
   "dependencies": {
+    "chromedriver": "^2.28.0",
     "wechaty": "^0.7.41"
   }
 }
