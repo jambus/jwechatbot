@@ -3,6 +3,7 @@ const http = require('http');
 const querystring = require('querystring');  
 
 const tulingAPIKey = 'e341f3cbed2f4faa9604df3f10246661';
+const wechatBoyExpression = /lazyjambus|jambus|一个偷懒的码农/;
 
 Wechaty.instance() // Singleton
     .on('scan', (url, code) => console.log(`Scan QR Code to login: ${code}\n${url}`))
@@ -14,15 +15,19 @@ Wechaty.instance() // Singleton
 .init();
 
 let callTuling = function(message) {
-    if(message.self()){
-        return;
-    }
 
     const contact = message.from();
     const content = message.content();
     const room = message.room();
 
     console.log(`Message, From: ${contact} Content: ${message} Room:${room}`);
+
+    if(message.self()){
+        return;
+    }
+    else if(room && !wechatBoyExpression.test(content)){
+        return;
+    }
 
     let post_data = querystring.stringify({
       key: tulingAPIKey,
