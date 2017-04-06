@@ -1,3 +1,4 @@
+"use strict";
 const { Wechaty } = require('wechaty');
 const http = require('http');
 const querystring = require('querystring');  
